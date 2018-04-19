@@ -41,7 +41,7 @@
     },
     {
         "ParameterKey": "EdgeInstanceType",
-        "ParameterValue": "m3.large"
+        "ParameterValue": "m4.large"
     },
     {
         "ParameterKey": "ELBConfiguration",
@@ -65,7 +65,7 @@
     },
     {
         "ParameterKey": "EXCHInstanceType",
-        "ParameterValue": "r3.xlarge"
+        "ParameterValue": "r4.xlarge"
     },
     {
         "ParameterKey": "FE1PrivateIp",
@@ -89,7 +89,7 @@
     },
     {
         "ParameterKey": "KeyPairName",
-        "ParameterValue": "cikey"
+        "ParameterValue": "$[alfred_getkeypair]"
     },
     {
         "ParameterKey": "LE1PrivateIp",
@@ -117,7 +117,7 @@
     },
     {
         "ParameterKey": "LyncISOImageURI",
-        "ParameterValue": "s3://quickstart-ci-media/microsoft/lync/2013/LS-E-8308.0-enUS.iso"
+        "ParameterValue": "s3://$[alfred_getmediabucket]/microsoft/lync/2013/LS-E-8308.0-enUS.iso"
     },
     {
         "ParameterKey": "OOSInstanceType",
@@ -161,7 +161,7 @@
     },
     {
         "ParameterKey": "SPISOImageURI",
-        "ParameterValue": "s3://quickstart-ci-media/microsoft/sharepoint/2016/officeserver.img"
+        "ParameterValue": "s3://$[alfred_getmediabucket]/microsoft/sharepoint/2016/officeserver.img"
     },
     {
         "ParameterKey": "SPKey",
@@ -173,7 +173,7 @@
     },
     {
         "ParameterKey": "SQLServerVersion",
-        "ParameterValue": "2014"
+        "ParameterValue": "2016"
     },
     {
         "ParameterKey": "SQLServiceAccount",
@@ -192,7 +192,7 @@
     },
     {
         "ParameterKey": "WSFCNode1InstanceType",
-        "ParameterValue": "r3.2xlarge"
+        "ParameterValue": "r4.2xlarge"
     },
     {
         "ParameterKey": "WSFCNode1NetBIOSName",
@@ -212,7 +212,7 @@
     },
     {
         "ParameterKey": "WSFCNode2InstanceType",
-        "ParameterValue": "r3.2xlarge"
+        "ParameterValue": "r4.2xlarge"
     },
     {
         "ParameterKey": "WSFCNode2NetBIOSName",
