@@ -777,20 +777,8 @@
             "Type": "AWS::CloudFormation::Stack",
             "DependsOn": "ADStack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-wapadfs/templates/Template_1_WAP_ADFS_2012R2.template",
+                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-wapadfs/templates/wap-adfs.template",
                 "Parameters": {
-                    "ADServer1PrivateIp": {
-                        "Ref": "ADServer1PrivateIP"
-                    },
-                    "ADServer2PrivateIp": {
-                        "Ref": "ADServer2PrivateIP"
-                    },
-                    "ADServerNetBIOSName1": {
-                        "Ref": "ADServer1NetBIOSName"
-                    },
-                    "ADServerNetBIOSName2": {
-                        "Ref": "ADServer2NetBIOSName"
-                    },
                     "DomainAdminPassword": {
                         "Ref": "DomainAdminPassword"
                     },
@@ -809,44 +797,44 @@
                     "DomainNetBIOSName": {
                         "Ref": "DomainNetBIOSName"
                     },
-                    "InstanceType": {
-                        "Ref": "WAPADFSInstanceType"
-                    },
                     "KeyPairName": {
                         "Ref": "KeyPairName"
                     },
-                    "PrivateSubnet1Id": {
+                    "PrivateSubnet1ID": {
                         "Fn::GetAtt": [
                             "ADStack",
                             "Outputs.PrivateSubnet1ID"
                         ]
                     },
-                    "PrivateSubnet2Id": {
+                    "PrivateSubnet2ID": {
                         "Fn::GetAtt": [
                             "ADStack",
                             "Outputs.PrivateSubnet2ID"
                         ]
                     },
-                    "PublicSubnet1Id": {
+                    "PublicSubnet1ID": {
                         "Fn::GetAtt": [
                             "ADStack",
                             "Outputs.PublicSubnet1ID"
                         ]
                     },
-                    "PublicSubnet2Id": {
+                    "PublicSubnet2ID": {
                         "Fn::GetAtt": [
                             "ADStack",
                             "Outputs.PublicSubnet2ID"
                         ]
                     },
-                    "VPC": {
+                    "VPCCIDR": {
+                        "Ref": "VPCCIDR"
+                    },
+                    "VPCID": {
                         "Fn::GetAtt": [
                             "ADStack",
                             "Outputs.VPCID"
                         ]
                     },
-                    "VPCCIDR": {
-                        "Ref": "VPCCIDR"
+                    "WAPADFSInstanceType": {
+                        "Ref": "WAPADFSInstanceType"
                     }
                 }
             }
