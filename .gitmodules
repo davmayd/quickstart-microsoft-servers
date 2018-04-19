@@ -1,0 +1,24 @@
+[submodule "submodules/quickstart-microsoft-activedirectory"]
+	path = submodules/quickstart-microsoft-activedirectory
+	url = ../../aws-quickstart/quickstart-microsoft-activedirectory.git
+	branch = master
+[submodule "submodules/quickstart-microsoft-wapadfs"]
+	path = submodules/quickstart-microsoft-wapadfs
+	url = ../../aws-quickstart/quickstart-microsoft-wapadfs.git
+	branch = master
+[submodule "submodules/quickstart-microsoft-sql"]
+	path = submodules/quickstart-microsoft-sql
+	url = ../../aws-quickstart/quickstart-microsoft-sql.git
+	branch = master
+[submodule "submodules/quickstart-microsoft-sharepoint"]
+	path = submodules/quickstart-microsoft-sharepoint
+	url = ../../aws-quickstart/quickstart-microsoft-sharepoint.git
+	branch = master
+[submodule "submodules/quickstart-microsoft-exchange"]
+	path = submodules/quickstart-microsoft-exchange
+	url = ../../aws-quickstart/quickstart-microsoft-exchange.git
+	branch = master
+[submodule "submodules/quickstart-microsoft-lync"]
+	path = submodules/quickstart-microsoft-lync
+	url = ../../aws-quickstart/quickstart-microsoft-lync.git
+	branch = master
