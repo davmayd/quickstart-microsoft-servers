@@ -173,7 +173,7 @@
     },
     {
         "ParameterKey": "SQLServerVersion",
-        "ParameterValue": "2016"
+        "ParameterValue": "2014"
     },
     {
         "ParameterKey": "SQLServiceAccount",
@@ -192,7 +192,7 @@
     },
     {
         "ParameterKey": "WSFCNode1InstanceType",
-        "ParameterValue": "r4.2xlarge"
+        "ParameterValue": "r3.2xlarge"
     },
     {
         "ParameterKey": "WSFCNode1NetBIOSName",
@@ -212,7 +212,7 @@
     },
     {
         "ParameterKey": "WSFCNode2InstanceType",
-        "ParameterValue": "r4.2xlarge"
+        "ParameterValue": "r3.2xlarge"
     },
     {
         "ParameterKey": "WSFCNode2NetBIOSName",
