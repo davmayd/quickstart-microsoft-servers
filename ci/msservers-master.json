@@ -191,8 +191,8 @@
         "ParameterValue": "c4.2xlarge"
     },
     {
-        "ParameterKey": "WSFCNode1InstanceType",
-        "ParameterValue": "r4.2xlarge"
+        "ParameterKey": "WSFCFileServerPrivateIP",
+        "ParameterValue": "10.0.0.200"
     },
     {
         "ParameterKey": "WSFCNode1NetBIOSName",
@@ -211,10 +211,6 @@
         "ParameterValue": "10.0.0.102"
     },
     {
-        "ParameterKey": "WSFCNode2InstanceType",
-        "ParameterValue": "r4.2xlarge"
-    },
-    {
         "ParameterKey": "WSFCNode2NetBIOSName",
         "ParameterValue": "WSFCNode2"
     },
@@ -229,5 +225,9 @@
     {
         "ParameterKey": "WSFCNode2PrivateIP3",
         "ParameterValue": "10.0.64.102"
+    },
+    {
+        "ParameterKey": "WSFCNodeInstanceType",
+        "ParameterValue": "r4.2xlarge"
     }
 ]

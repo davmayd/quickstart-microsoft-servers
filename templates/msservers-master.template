@@ -43,12 +43,12 @@
                         "LE1PublicIp",
                         "LE2PrivateIp",
                         "LE2PublicIp",
-                        "WSFCNode1InstanceType",
+                        "WSFCFileServerPrivateIP",
+                        "WSFCNodeInstanceType",
                         "WSFCNode1NetBIOSName",
                         "WSFCNode1PrivateIP1",
                         "WSFCNode1PrivateIP2",
                         "WSFCNode1PrivateIP3",
-                        "WSFCNode2InstanceType",
                         "WSFCNode2NetBIOSName",
                         "WSFCNode2PrivateIP1",
                         "WSFCNode2PrivateIP2",
@@ -272,8 +272,8 @@
                 "WAPADFSInstanceType": {
                     "default": "WAP and ADFS Server Instance Type"
                 },
-                "WSFCNode1InstanceType": {
-                    "default": "WSFC Node 1 Instance Type"
+                "WSFCFileServerPrivateIP": {
+                    "default": "File Server Private IP Address"
                 },
                 "WSFCNode1NetBIOSName": {
                     "default": "WSFC Node 1 NetBIOS Name"
@@ -287,9 +287,6 @@
                 "WSFCNode1PrivateIP3": {
                     "default": "WSFC Node 1 Private IP Address 3"
                 },
-                "WSFCNode2InstanceType": {
-                    "default": "WSFC Node 2 Instance Type"
-                },
                 "WSFCNode2NetBIOSName": {
                     "default": "WSFC Node 2 NetBIOS Name"
                 },
@@ -301,6 +298,9 @@
                 },
                 "WSFCNode2PrivateIP3": {
                     "default": "WSFC Node 2 Private IP Address 3"
+                },
+                "WSFCNodeInstanceType": {
+                    "default": "WSFC Node Instance Type"
                 }
             }
         }
@@ -421,7 +421,7 @@
                 "r4.2xlarge",
                 "r4.4xlarge"
             ],
-            "ConstraintDescription": "Only EBS Optimized instance types r3.xlarge, r3.2xlarge, r3.4xlarge allowed",
+            "ConstraintDescription": "Only EBS Optimized instance types r4.xlarge, r4.2xlarge, r4.4xlarge allowed",
             "Default": "r4.xlarge",
             "Description": "Amazon EC2 instance type for the Exchange Servers",
             "Type": "String"
@@ -670,15 +670,10 @@
             "Description": "Amazon EC2 instance type for the WAP and ADFS Servers",
             "Type": "String"
         },
-        "WSFCNode1InstanceType": {
-            "AllowedValues": [
-                "r4.xlarge",
-                "r4.2xlarge",
-                "r4.4xlarge"
-            ],
-            "ConstraintDescription": "Only EBS Optimized instance types r3.xlarge, r3.2xlarge, r3.4xlarge allowed",
-            "Default": "r4.2xlarge",
-            "Description": "Amazon EC2 instance type for the 1st WSFC Node",
+        "WSFCFileServerPrivateIP": {
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+            "Default": "10.0.0.200",
+            "Description": "Primary private IP for the fileserver located in Availability Zone 1",
             "Type": "String"
         },
         "WSFCNode1NetBIOSName": {
@@ -707,17 +702,6 @@
             "Description": "Third private IP for Availability Group Listener on first WSFC Node",
             "Type": "String"
         },
-        "WSFCNode2InstanceType": {
-            "AllowedValues": [
-                "r4.xlarge",
-                "r4.2xlarge",
-                "r4.4xlarge"
-            ],
-            "ConstraintDescription": "Only EBS Optimized instance types r3.xlarge, r3.2xlarge, r3.4xlarge allowed",
-            "Default": "r4.2xlarge",
-            "Description": "Amazon EC2 instance type for the 1st WSFC Node",
-            "Type": "String"
-        },
         "WSFCNode2NetBIOSName": {
             "AllowedPattern": "[a-zA-Z0-9]+",
             "Default": "WSFCNode2",
@@ -742,6 +726,18 @@
             "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
             "Default": "10.0.32.102",
             "Description": "Third private IP for Availability Group Listener on second WSFC Node",
+            "Type": "String"
+        },
+        "WSFCNodeInstanceType": {
+            "AllowedValues": [
+                "r4.xlarge",
+                "r4.2xlarge",
+                "r4.4xlarge",
+                "r4.8xlarge"
+            ],
+            "ConstraintDescription": "Only EBS Optimized instance types r4.xlarge, r4.2xlarge, r4.4xlarge, r4.8xlarge allowed",
+            "Default": "r4.2xlarge",
+            "Description": "Amazon EC2 instance type for the WSFC Nodes",
             "Type": "String"
         }
     },
