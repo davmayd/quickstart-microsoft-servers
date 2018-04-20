@@ -794,22 +794,24 @@
                     "AvailabilityZones": {
                         "Fn::Join": [
                             ",",
-                            {
-                                "Fn::Select": [
-                                    "0",
-                                    {
-                                        "Fn::GetAZs": ""
-                                    }
-                                ]
-                            },
-                            {
-                                "Fn::Select": [
-                                    "1",
-                                    {
-                                        "Fn::GetAZs": ""
-                                    }
-                                ]
-                            }
+                            [
+                                {
+                                    "Fn::Select": [
+                                        "0",
+                                        {
+                                            "Fn::GetAZs": ""
+                                        }
+                                    ]
+                                },
+                                {
+                                    "Fn::Select": [
+                                        "1",
+                                        {
+                                            "Fn::GetAZs": ""
+                                        }
+                                    ]
+                                }
+                            ]
                         ]
                     },
                     "KeyPairName": {
