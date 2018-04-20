@@ -144,10 +144,6 @@
         "ParameterValue": "10.0.0.0/16"
     },
     {
-        "ParameterKey": "RDGWInstanceType",
-        "ParameterValue": "m4.xlarge"
-    },
-    {
         "ParameterKey": "RestoreModePassword",
         "ParameterValue": "$[alfred_genpass_32]"
     },
