@@ -1112,13 +1112,7 @@
                         "Ref": "DomainAdminPassword"
                     },
                     "DomainAdminUser": {
-                        "Fn::If": [
-                            "UseAWSDirectoryServiceEE",
-                            "admin",
-                            {
-                                "Ref": "DomainAdminUser"
-                            }
-                        ]
+                        "Ref": "DomainAdminUser"
                     },
                     "DomainDNSName": {
                         "Ref": "DomainDNSName"
