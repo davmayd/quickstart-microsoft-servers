@@ -31,10 +31,10 @@
                         "ADServer2PrivateIP",
                         "EdgeInstanceType",
                         "EXCHInstanceType",
-                        "EXCH1PrivateIp",
-                        "EXCH1PrivateIp2",
-                        "EXCH2PrivateIp",
-                        "EXCH2PrivateIp2",
+                        "EXCH1PrivateIP1",
+                        "EXCH1PrivateIP2",
+                        "EXCH2PrivateIP1",
+                        "EXCH2PrivateIP2",
                         "LyncFEInstanceType",
                         "FE1PrivateIp",
                         "FE2PrivateIp",
@@ -173,16 +173,16 @@
                 "EXCHInstanceType": {
                     "default": "Exchange Multi Role Server Instance Type"
                 },
-                "EXCH1PrivateIp": {
+                "EXCH1PrivateIP1": {
                     "default": "Exchange Server 1 Private IP Address 1"
                 },
-                "EXCH1PrivateIp2": {
+                "EXCH1PrivateIP2": {
                     "default": "Exchange Server 1 Private IP Address 2"
                 },
-                "EXCH2PrivateIp": {
+                "EXCH2PrivateIP1": {
                     "default": "Exchange Server 2 Private IP Address 1"
                 },
-                "EXCH2PrivateIp2": {
+                "EXCH2PrivateIP2": {
                     "default": "Exchange Server 2 Private IP Address 2"
                 },
                 "FE1PrivateIp": {
@@ -395,22 +395,22 @@
             "Description": "Specify how to configure the Elastic Load Balancer. Allowed values are internal or external",
             "Type": "String"
         },
-        "EXCH1PrivateIp": {
+        "EXCH1PrivateIP1": {
             "Default": "10.0.0.150",
             "Description": "Primary private IP for the first Exchange Server",
             "Type": "String"
         },
-        "EXCH1PrivateIp2": {
+        "EXCH1PrivateIP2": {
             "Default": "10.0.0.151",
             "Description": "Secondary private IP for the first Exchange Server",
             "Type": "String"
         },
-        "EXCH2PrivateIp": {
+        "EXCH2PrivateIP1": {
             "Default": "10.0.32.150",
             "Description": "Primary private IP for the second Exchange Server",
             "Type": "String"
         },
-        "EXCH2PrivateIp2": {
+        "EXCH2PrivateIP2": {
             "Default": "10.0.32.151",
             "Description": "Secondary private IP for the second Exchange Server",
             "Type": "String"
@@ -1334,7 +1334,7 @@
             "Properties": {
                 "TemplateURL": {
                     "Fn::Sub": [
-                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-exchange/templates/Template_1_EXCH_2013.template",
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}templates/exchange.template",
                         {
                             "QSS3Region": {
                                 "Fn::If": [
@@ -1347,17 +1347,17 @@
                     ]
                 },
                 "Parameters": {
-                    "ADServer1PrivateIp": {
-                        "Ref": "ADServer1PrivateIP"
-                    },
-                    "ADServer2PrivateIp": {
-                        "Ref": "ADServer2PrivateIP"
-                    },
-                    "ADServerNetBIOSName1": {
+                    "ADServer1NetBIOSName": {
                         "Ref": "ADServer1NetBIOSName"
                     },
-                    "ADServerNetBIOSName2": {
+                    "ADServer1PrivateIP": {
+                        "Ref": "ADServer1PrivateIP"
+                    },
+                    "ADServer2NetBIOSName": {
                         "Ref": "ADServer2NetBIOSName"
+                    },
+                    "ADServer2PrivateIP": {
+                        "Ref": "ADServer2PrivateIP"
                     },
                     "DomainAdminPassword": {
                         "Ref": "DomainAdminPassword"
@@ -1377,17 +1377,17 @@
                     "DomainNetBIOSName": {
                         "Ref": "DomainNetBIOSName"
                     },
-                    "EXCH1PrivateIp": {
-                        "Ref": "EXCH1PrivateIp"
+                    "EXCH1PrivateIP1": {
+                        "Ref": "EXCH1PrivateIP1"
                     },
-                    "EXCH1PrivateIp2": {
-                        "Ref": "EXCH1PrivateIp2"
+                    "EXCH1PrivateIP2": {
+                        "Ref": "EXCH1PrivateIP2"
                     },
-                    "EXCH2PrivateIp": {
-                        "Ref": "EXCH2PrivateIp"
+                    "EXCH2PrivateIP1": {
+                        "Ref": "EXCH2PrivateIP1"
                     },
-                    "EXCH2PrivateIp2": {
-                        "Ref": "EXCH2PrivateIp2"
+                    "EXCH2PrivateIP2": {
+                        "Ref": "EXCH2PrivateIP2"
                     },
                     "EXCHInstanceType": {
                         "Ref": "EXCHInstanceType"
@@ -1401,44 +1401,53 @@
                     "KeyPairName": {
                         "Ref": "KeyPairName"
                     },
-                    "PrivSub1CIDR": {
+                    "PrivateSubnet1CIDR": {
                         "Ref": "PrivateSubnet1CIDR"
                     },
-                    "PrivSub2CIDR": {
-                        "Ref": "PrivateSubnet2CIDR"
-                    },
-                    "PrivateSubnet1Id": {
+                    "PrivateSubnet1ID": {
                         "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PrivateSubnet1AID"
                         ]
                     },
-                    "PrivateSubnet2Id": {
+                    "PrivateSubnet2CIDR": {
+                        "Ref": "PrivateSubnet2CIDR"
+                    },
+                    "PrivateSubnet2ID": {
                         "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PrivateSubnet2AID"
                         ]
                     },
-                    "PublicSubnet1Id": {
+                    "PublicSubnet1ID": {
                         "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PublicSubnet1ID"
                         ]
                     },
-                    "PublicSubnet2Id": {
+                    "PublicSubnet2ID": {
                         "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.PublicSubnet2ID"
                         ]
                     },
-                    "VPC": {
+                    "QSS3BucketName": {
+                        "Ref": "QSS3BucketName"
+                    },
+                    "QSS3KeyPrefix": {
+                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-exchange/"
+                    },
+                    "VPCCIDR": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.VPCCIDR"
+                        ]
+                    },
+                    "VPCID": {
                         "Fn::GetAtt": [
                             "VPCStack",
                             "Outputs.VPCID"
                         ]
-                    },
-                    "VPCCIDR": {
-                        "Ref": "VPCCIDR"
                     }
                 }
             }
@@ -1499,7 +1508,7 @@
                         "Ref": "FE2PrivateIp"
                     },
                     "IncludeEdge": {
-                        "Ref": "IncludeEdge"
+                        "Ref": "IncludeLyncEdge"
                     },
                     "KeyPairName": {
                         "Ref": "KeyPairName"

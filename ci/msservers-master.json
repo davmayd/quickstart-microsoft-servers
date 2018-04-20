@@ -48,19 +48,19 @@
         "ParameterValue": "external"
     },
     {
-        "ParameterKey": "EXCH1PrivateIp",
+        "ParameterKey": "EXCH1PrivateIP1",
         "ParameterValue": "10.0.0.150"
     },
     {
-        "ParameterKey": "EXCH1PrivateIp2",
+        "ParameterKey": "EXCH1PrivateIP2",
         "ParameterValue": "10.0.0.151"
     },
     {
-        "ParameterKey": "EXCH2PrivateIp",
+        "ParameterKey": "EXCH2PrivateIP1",
         "ParameterValue": "10.0.64.150"
     },
     {
-        "ParameterKey": "EXCH2PrivateIp2",
+        "ParameterKey": "EXCH2PrivateIP2",
         "ParameterValue": "10.0.64.151"
     },
     {
