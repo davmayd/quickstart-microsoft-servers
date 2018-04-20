@@ -85,7 +85,7 @@
     },
     {
         "ParameterKey": "IncludeOfficeOnlineServer",
-        "ParameterValue": "true"
+        "ParameterValue": "false"
     },
     {
         "ParameterKey": "KeyPairName",
@@ -169,11 +169,11 @@
     },
     {
         "ParameterKey": "SPTopology",
-        "ParameterValue": "streamlined"
+        "ParameterValue": "traditional"
     },
     {
         "ParameterKey": "SQLServerVersion",
-        "ParameterValue": "2014"
+        "ParameterValue": "2016"
     },
     {
         "ParameterKey": "SQLServiceAccount",
@@ -192,7 +192,7 @@
     },
     {
         "ParameterKey": "WSFCNode1InstanceType",
-        "ParameterValue": "r3.2xlarge"
+        "ParameterValue": "r4.2xlarge"
     },
     {
         "ParameterKey": "WSFCNode1NetBIOSName",
@@ -212,7 +212,7 @@
     },
     {
         "ParameterKey": "WSFCNode2InstanceType",
-        "ParameterValue": "r3.2xlarge"
+        "ParameterValue": "r4.2xlarge"
     },
     {
         "ParameterKey": "WSFCNode2NetBIOSName",

@@ -110,6 +110,15 @@
                     "Parameters": [
                         "IncludeEdge"
                     ]
+                },
+                {
+                    "Label": {
+                        "default": "AWS Quick Start Configuration"
+                    },
+                    "Parameters": [
+                        "QSS3BucketName",
+                        "QSS3KeyPrefix"
+                    ]
                 }
             ],
             "ParameterLabels": {
@@ -217,6 +226,12 @@
                 },
                 "PublicSubnet2CIDR": {
                     "default": "Public Subnet 2 CIDR"
+                },
+                "QSS3BucketName": {
+                    "default": "Quick Start S3 Bucket Name"
+                },
+                "QSS3KeyPrefix": {
+                    "default": "Quick Start S3 Key Prefix"
                 },
                 "RDGWInstanceType": {
                     "default": "Remote Desktop Gateway Server Instance Type"
@@ -335,7 +350,7 @@
             "Type": "String"
         },
         "ADServer2PrivateIP": {
-            "Default": "10.0.64.10",
+            "Default": "10.0.32.10",
             "Description": "Fixed private IP for the second Active Directory server located in AZ2",
             "Type": "String"
         },
@@ -391,12 +406,12 @@
             "Type": "String"
         },
         "EXCH2PrivateIp": {
-            "Default": "10.0.64.150",
+            "Default": "10.0.32.150",
             "Description": "Primary private IP for the second Exchange Server",
             "Type": "String"
         },
         "EXCH2PrivateIp2": {
-            "Default": "10.0.64.151",
+            "Default": "10.0.32.151",
             "Description": "Secondary private IP for the second Exchange Server",
             "Type": "String"
         },
@@ -429,7 +444,7 @@
             "Type": "String"
         },
         "FE2PrivateIp": {
-            "Default": "10.0.64.160",
+            "Default": "10.0.32.160",
             "Description": "Primary private IP for the second Lync Front-End Server",
             "Type": "String"
         },
@@ -470,17 +485,17 @@
             "Type": "String"
         },
         "LE1PublicIp": {
-            "Default": "10.0.32.161",
+            "Default": "10.0.128.161",
             "Description": "Primary public subnet IP for the first Lync Edge Server",
             "Type": "String"
         },
         "LE2PrivateIp": {
-            "Default": "10.0.64.161",
+            "Default": "10.0.32.161",
             "Description": "Primary private IP for the second Edge Server",
             "Type": "String"
         },
         "LE2PublicIp": {
-            "Default": "10.0.96.161",
+            "Default": "10.0.144.161",
             "Description": "Primary public subnet IP for the second Edge Server",
             "Type": "String"
         },
@@ -515,27 +530,45 @@
             "Type": "String"
         },
         "PrivateSubnet1CIDR": {
-            "AllowedPattern": "[a-zA-Z0-9]+\\..+",
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/(1[6-9]|2[0-8]))$",
+            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/16-28",
             "Default": "10.0.0.0/19",
-            "Description": "CIDR block for the AD Server tier located in AZ1.",
+            "Description": "CIDR block for private subnet 1 located in Availability Zone 1.",
             "Type": "String"
         },
         "PrivateSubnet2CIDR": {
-            "AllowedPattern": "[a-zA-Z0-9]+\\..+",
-            "Default": "10.0.64.0/19",
-            "Description": "CIDR block for the AD Server tier located in AZ2.",
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/(1[6-9]|2[0-8]))$",
+            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/16-28",
+            "Default": "10.0.32.0/19",
+            "Description": "CIDR block for private subnet 2 located in Availability Zone 2.",
             "Type": "String"
         },
         "PublicSubnet1CIDR": {
-            "AllowedPattern": "[a-zA-Z0-9]+\\..+",
-            "Default": "10.0.32.0/20",
-            "Description": "CIDR Block for the Public DMZ Subnet located in AZ1",
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/(1[6-9]|2[0-8]))$",
+            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/16-28",
+            "Default": "10.0.128.0/20",
+            "Description": "CIDR Block for the public DMZ subnet 1 located in Availability Zone 1",
             "Type": "String"
         },
         "PublicSubnet2CIDR": {
-            "AllowedPattern": "[a-zA-Z0-9]+\\..+",
-            "Default": "10.0.96.0/20",
-            "Description": "CIDR Block for the Public DMZ Subnet located in AZ2",
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/(1[6-9]|2[0-8]))$",
+            "ConstraintDescription": "CIDR block parameter must be in the form x.x.x.x/16-28",
+            "Default": "10.0.144.0/20",
+            "Description": "CIDR Block for the public DMZ subnet 2 located in Availability Zone 2",
+            "Type": "String"
+        },
+        "QSS3BucketName": {
+            "AllowedPattern": "^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$",
+            "ConstraintDescription": "Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
+            "Default": "aws-quickstart",
+            "Description": "S3 bucket name for the Quick Start assets. Quick Start bucket name can include numbers, lowercase letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen (-).",
+            "Type": "String"
+        },
+        "QSS3KeyPrefix": {
+            "AllowedPattern": "^[0-9a-zA-Z-/]*$",
+            "ConstraintDescription": "Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
+            "Default": "quickstart-enterprise-accelerator-msservers/",
+            "Description": "S3 key prefix for the Quick Start assets. Quick Start key prefix can include numbers, lowercase letters, uppercase letters, hyphens (-), and forward slash (/).",
             "Type": "String"
         },
         "RDGWInstanceType": {
@@ -605,9 +638,10 @@
         "SQLServerVersion": {
             "AllowedValues": [
                 "2014",
-                "2012"
+                "2016",
+                "2017"
             ],
-            "Default": "2014",
+            "Default": "2016",
             "Description": "Version of SQL Server to install on WSFC Nodes. Options include either \"2014\" or \"2012\"",
             "Type": "String"
         },
@@ -643,12 +677,12 @@
         },
         "WSFCNode1InstanceType": {
             "AllowedValues": [
-                "r3.xlarge",
-                "r3.2xlarge",
-                "r3.4xlarge"
+                "r4.xlarge",
+                "r4.2xlarge",
+                "r4.4xlarge"
             ],
             "ConstraintDescription": "Only EBS Optimized instance types r3.xlarge, r3.2xlarge, r3.4xlarge allowed",
-            "Default": "r3.2xlarge",
+            "Default": "r4.2xlarge",
             "Description": "Amazon EC2 instance type for the 1st WSFC Node",
             "Type": "String"
         },
@@ -661,28 +695,31 @@
             "Type": "String"
         },
         "WSFCNode1PrivateIP1": {
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
             "Default": "10.0.0.100",
-            "Description": "Primary private IP for the 1st WSFC Node located in AZ1",
+            "Description": "Primary private IP for the first WSFC Node located in Availability Zone 1",
             "Type": "String"
         },
         "WSFCNode1PrivateIP2": {
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
             "Default": "10.0.0.101",
-            "Description": "Secondary private IP for WSFC cluster on 1st WSFC Node",
+            "Description": "Secondary private IP for WSFC cluster on first WSFC Node",
             "Type": "String"
         },
         "WSFCNode1PrivateIP3": {
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
             "Default": "10.0.0.102",
-            "Description": "Third private IP for Availability Group Listener on 1st WSFC Node",
+            "Description": "Third private IP for Availability Group Listener on first WSFC Node",
             "Type": "String"
         },
         "WSFCNode2InstanceType": {
             "AllowedValues": [
-                "r3.xlarge",
-                "r3.2xlarge",
-                "r3.4xlarge"
+                "r4.xlarge",
+                "r4.2xlarge",
+                "r4.4xlarge"
             ],
             "ConstraintDescription": "Only EBS Optimized instance types r3.xlarge, r3.2xlarge, r3.4xlarge allowed",
-            "Default": "r3.2xlarge",
+            "Default": "r4.2xlarge",
             "Description": "Amazon EC2 instance type for the 1st WSFC Node",
             "Type": "String"
         },
@@ -695,26 +732,135 @@
             "Type": "String"
         },
         "WSFCNode2PrivateIP1": {
-            "Default": "10.0.64.100",
-            "Description": "Primary private IP for the 2nd WSFC Node located in AZ2",
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+            "Default": "10.0.32.100",
+            "Description": "Primary private IP for the second WSFC Node located in Availability Zone 2",
             "Type": "String"
         },
         "WSFCNode2PrivateIP2": {
-            "Default": "10.0.64.101",
-            "Description": "Secondary private IP for WSFC cluster on 2nd WSFC Node",
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+            "Default": "10.0.32.101",
+            "Description": "Secondary private IP for WSFC cluster on second WSFC Node",
             "Type": "String"
         },
         "WSFCNode2PrivateIP3": {
-            "Default": "10.0.64.102",
-            "Description": "Third private IP for Availability Group Listener on 2nd WSFC Node",
+            "AllowedPattern": "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$",
+            "Default": "10.0.32.102",
+            "Description": "Third private IP for Availability Group Listener on second WSFC Node",
             "Type": "String"
         }
     },
+    "Conditions": {
+        "GovCloudCondition": {
+            "Fn::Equals": [
+                {
+                    "Ref": "AWS::Region"
+                },
+                "us-gov-west-1"
+            ]
+        }
+    },
+    "Rules": {
+        "KeyPairsNotEmpty": {
+            "Assertions": [
+                {
+                    "Assert": {
+                        "Fn::Not": [
+                            {
+                                "Fn::EachMemberEquals": [
+                                    {
+                                        "Fn::RefAll": "AWS::EC2::KeyPair::KeyName"
+                                    },
+                                    ""
+                                ]
+                            }
+                        ]
+                    },
+                    "AssertDescription": "All key pair parameters must not be empty"
+                }
+            ]
+        }
+    },
     "Resources": {
-        "ADStack": {
+        "VPCStack": {
             "Type": "AWS::CloudFormation::Stack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-activedirectory/templates/Template_1_AD_2012R2.template",
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-aws-vpc/templates/aws-vpc.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "Parameters": {
+                    "AvailabilityZones": {
+                        "Fn::Join": [
+                            ",",
+                            {
+                                "Fn::Select": [
+                                    "0",
+                                    {
+                                        "Fn::GetAZs": ""
+                                    }
+                                ]
+                            },
+                            {
+                                "Fn::Select": [
+                                    "1",
+                                    {
+                                        "Fn::GetAZs": ""
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "KeyPairName": {
+                        "Ref": "KeyPairName"
+                    },
+                    "NumberOfAZs": "2",
+                    "PrivateSubnet1ACIDR": {
+                        "Ref": "PrivateSubnet1CIDR"
+                    },
+                    "PrivateSubnet2ACIDR": {
+                        "Ref": "PrivateSubnet2CIDR"
+                    },
+                    "PublicSubnet1CIDR": {
+                        "Ref": "PublicSubnet1CIDR"
+                    },
+                    "PublicSubnet2CIDR": {
+                        "Ref": "PublicSubnet2CIDR"
+                    },
+                    "VPCCIDR": {
+                        "Ref": "VPCCIDR"
+                    }
+                }
+            }
+        },
+        "ADStack": {
+            "DependsOn": "VPCStack",
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-activedirectory/templates/ad-1.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "Parameters": {
                     "ADServer1InstanceType": {
                         "Ref": "ADServer1InstanceType"
@@ -752,8 +898,20 @@
                     "PrivateSubnet1CIDR": {
                         "Ref": "PrivateSubnet1CIDR"
                     },
+                    "PrivateSubnet1ID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet1AID"
+                        ]
+                    },
                     "PrivateSubnet2CIDR": {
                         "Ref": "PrivateSubnet2CIDR"
+                    },
+                    "PrivateSubnet2ID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet2AID"
+                        ]
                     },
                     "PublicSubnet1CIDR": {
                         "Ref": "PublicSubnet1CIDR"
@@ -761,23 +919,121 @@
                     "PublicSubnet2CIDR": {
                         "Ref": "PublicSubnet2CIDR"
                     },
-                    "RDGWInstanceType": {
-                        "Ref": "RDGWInstanceType"
+                    "QSS3BucketName": {
+                        "Ref": "QSS3BucketName"
+                    },
+                    "QSS3KeyPrefix": {
+                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-activedirectory/"
                     },
                     "RestoreModePassword": {
                         "Ref": "RestoreModePassword"
                     },
                     "VPCCIDR": {
                         "Ref": "VPCCIDR"
+                    },
+                    "VPCID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.VPCID"
+                        ]
+                    }
+                }
+            }
+        },
+        "RDGWStack": {
+            "DependsOn": "ADStack",
+            "Type": "AWS::CloudFormation::Stack",
+            "Properties": {
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-rdgateway/templates/rdgw-domain.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "Parameters": {
+                    "DomainAdminPassword": {
+                        "Ref": "DomainAdminPassword"
+                    },
+                    "DomainAdminUser": {
+                        "Ref": "DomainAdminUser"
+                    },
+                    "DomainDNSName": {
+                        "Ref": "DomainDNSName"
+                    },
+                    "DomainMemberSGID": {
+                        "Fn::GetAtt": [
+                            "ADStack",
+                            "Outputs.DomainMemberSGID"
+                        ]
+                    },
+                    "DomainNetBIOSName": {
+                        "Ref": "DomainNetBIOSName"
+                    },
+                    "KeyPairName": {
+                        "Ref": "KeyPairName"
+                    },
+                    "NumberOfRDGWHosts": {
+                        "Ref": "NumberOfRDGWHosts"
+                    },
+                    "PublicSubnet1ID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PublicSubnet1ID"
+                        ]
+                    },
+                    "PublicSubnet2ID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PublicSubnet2ID"
+                        ]
+                    },
+                    "QSS3BucketName": {
+                        "Ref": "QSS3BucketName"
+                    },
+                    "QSS3KeyPrefix": {
+                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-rdgateway/"
+                    },
+                    "RDGWInstanceType": {
+                        "Ref": "RDGWInstanceType"
+                    },
+                    "RDGWCIDR": {
+                        "Ref": "RDGWCIDR"
+                    },
+                    "VPCID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.VPCID"
+                        ]
                     }
                 }
             }
         },
         "WAPADFSStack": {
-            "Type": "AWS::CloudFormation::Stack",
             "DependsOn": "ADStack",
+            "Type": "AWS::CloudFormation::Stack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-wapadfs/templates/wap-adfs.template",
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-wapadfs/templates/wap-adfs.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "Parameters": {
                     "DomainAdminPassword": {
                         "Ref": "DomainAdminPassword"
@@ -802,34 +1058,40 @@
                     },
                     "PrivateSubnet1ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet1ID"
+                            "VPCStack",
+                            "Outputs.PrivateSubnet1AID"
                         ]
                     },
                     "PrivateSubnet2ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet2ID"
+                            "VPCStack",
+                            "Outputs.PrivateSubnet2AID"
                         ]
                     },
                     "PublicSubnet1ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.PublicSubnet1ID"
                         ]
                     },
                     "PublicSubnet2ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.PublicSubnet2ID"
                         ]
+                    },
+                    "QSS3BucketName": {
+                        "Ref": "QSS3BucketName"
+                    },
+                    "QSS3KeyPrefix": {
+                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-wapadfs/"
                     },
                     "VPCCIDR": {
                         "Ref": "VPCCIDR"
                     },
                     "VPCID": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.VPCID"
                         ]
                     },
@@ -840,31 +1102,35 @@
             }
         },
         "SQLStack": {
-            "Type": "AWS::CloudFormation::Stack",
             "DependsOn": "ADStack",
+            "Type": "AWS::CloudFormation::Stack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-sql/templates/Template_1_SQL_AlwaysOn.template",
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-sql/templates/sql.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "Parameters": {
-                    "ADServer1PrivateIp": {
-                        "Ref": "ADServer1PrivateIP"
-                    },
-                    "ADServer2PrivateIp": {
-                        "Ref": "ADServer2PrivateIP"
-                    },
-                    "ADServerNetBIOSName1": {
-                        "Ref": "ADServer1NetBIOSName"
-                    },
-                    "ADServerNetBIOSName2": {
-                        "Ref": "ADServer2NetBIOSName"
-                    },
-                    "SQLServerVersion": {
-                        "Ref": "SQLServerVersion"
-                    },
                     "DomainAdminPassword": {
                         "Ref": "DomainAdminPassword"
                     },
                     "DomainAdminUser": {
-                        "Ref": "DomainAdminUser"
+                        "Fn::If": [
+                            "UseAWSDirectoryServiceEE",
+                            "admin",
+                            {
+                                "Ref": "DomainAdminUser"
+                            }
+                        ]
                     },
                     "DomainDNSName": {
                         "Ref": "DomainDNSName"
@@ -881,71 +1147,71 @@
                     "KeyPairName": {
                         "Ref": "KeyPairName"
                     },
+                    "PrivateSubnet1ID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet1AID"
+                        ]
+                    },
+                    "PrivateSubnet2ID": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet2AID"
+                        ]
+                    },
+                    "QSS3BucketName": {
+                        "Ref": "QSS3BucketName"
+                    },
+                    "QSS3KeyPrefix": {
+                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-sql/"
+                    },
+                    "SQLServerVersion": {
+                        "Ref": "SQLServerVersion"
+                    },
                     "SQLServiceAccount": {
                         "Ref": "SQLServiceAccount"
                     },
                     "SQLServiceAccountPassword": {
                         "Ref": "SQLServiceAccountPassword"
                     },
-                    "VPC": {
+                    "VPCID": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.VPCID"
                         ]
                     },
-                    "PrivSub1CIDR": {
-                        "Ref": "PrivateSubnet1CIDR"
+                    "WSFCFileServerPrivateIP": {
+                        "Ref": "WSFCFileServerPrivateIP"
                     },
                     "WSFCNode1InstanceType": {
-                        "Ref": "WSFCNode1InstanceType"
+                        "Ref": "WSFCNodeInstanceType"
                     },
                     "WSFCNode1NetBIOSName": {
                         "Ref": "WSFCNode1NetBIOSName"
                     },
-                    "WSFCNode1PrivateIp": {
+                    "WSFCNode1PrivateIP1": {
                         "Ref": "WSFCNode1PrivateIP1"
                     },
-                    "WSFCNode1PrivateIp2": {
+                    "WSFCNode1PrivateIP2": {
                         "Ref": "WSFCNode1PrivateIP2"
                     },
-                    "WSFCNode1PrivateIp3": {
+                    "WSFCNode1PrivateIP3": {
                         "Ref": "WSFCNode1PrivateIP3"
                     },
-                    "PrivateSubnet1Id": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet1ID"
-                        ]
-                    },
-                    "PrivSub2CIDR": {
-                        "Ref": "PrivateSubnet2CIDR"
-                    },
                     "WSFCNode2InstanceType": {
-                        "Ref": "WSFCNode2InstanceType"
+                        "Ref": "WSFCNodeInstanceType"
                     },
                     "WSFCNode2NetBIOSName": {
                         "Ref": "WSFCNode2NetBIOSName"
                     },
-                    "WSFCNode2PrivateIp": {
+                    "WSFCNode2PrivateIP1": {
                         "Ref": "WSFCNode2PrivateIP1"
                     },
-                    "WSFCNode2PrivateIp2": {
+                    "WSFCNode2PrivateIP2": {
                         "Ref": "WSFCNode2PrivateIP2"
                     },
-                    "WSFCNode2PrivateIp3": {
+                    "WSFCNode2PrivateIP3": {
                         "Ref": "WSFCNode2PrivateIP3"
-                    },
-                    "PrivateSubnet2Id": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet2ID"
-                        ]
-                    },
-                    "VPCCIDR": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.VPCCIDR"
-                        ]
                     }
                 }
             }
@@ -954,7 +1220,20 @@
             "Type": "AWS::CloudFormation::Stack",
             "DependsOn": "SQLStack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-sharepoint/templates/Template_1_SharePoint_2016.template",
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-sharepoint/templates/Template_1_SharePoint_2016.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "Parameters": {
                     "ADServer1PrivateIP": {
                         "Ref": "ADServer1PrivateIP"
@@ -1000,27 +1279,33 @@
                     },
                     "PrivateSubnet1ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet1ID"
+                            "VPCStack",
+                            "Outputs.PrivateSubnet1AID"
                         ]
                     },
                     "PrivateSubnet2ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet2ID"
+                            "VPCStack",
+                            "Outputs.PrivateSubnet2AID"
                         ]
                     },
                     "PublicSubnet1ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.PublicSubnet1ID"
                         ]
                     },
                     "PublicSubnet2ID": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.PublicSubnet2ID"
                         ]
+                    },
+                    "QSS3BucketName": {
+                        "Ref": "QSS3BucketName"
+                    },
+                    "QSS3KeyPrefix": {
+                        "Fn::Sub": "${QSS3KeyPrefix}submodules/quickstart-microsoft-sharepoint/"
                     },
                     "SPFarmAccount": {
                         "Ref": "SPFarmAccount"
@@ -1040,15 +1325,21 @@
                     "SPTopology": {
                         "Ref": "SPTopology"
                     },
+                    "SQLServerAccessSecurityGroupID": {
+                        "Fn::GetAtt": [
+                            "SQLStack",
+                            "Outputs.SQLServerAccessSecurityGroupID"
+                        ]
+                    },
                     "VPCID": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.VPCID"
                         ]
                     },
                     "VPCCIDR": {
                         "Fn::GetAtt": [
-                            "ADStack",
+                            "VPCStack",
                             "Outputs.VPCCIDR"
                         ]
                     }
@@ -1059,22 +1350,26 @@
             "Type": "AWS::CloudFormation::Stack",
             "DependsOn": "ADStack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-exchange/templates/Template_1_EXCH_2013.template",
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-exchange/templates/Template_1_EXCH_2013.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "Parameters": {
-                    "EXCHInstanceType": {
-                        "Ref": "EXCHInstanceType"
+                    "ADServer1PrivateIp": {
+                        "Ref": "ADServer1PrivateIP"
                     },
-                    "EdgeInstanceType": {
-                        "Ref": "EdgeInstanceType"
-                    },
-                    "DomainDNSName": {
-                        "Ref": "DomainDNSName"
-                    },
-                    "DomainNetBIOSName": {
-                        "Ref": "DomainNetBIOSName"
-                    },
-                    "KeyPairName": {
-                        "Ref": "KeyPairName"
+                    "ADServer2PrivateIp": {
+                        "Ref": "ADServer2PrivateIP"
                     },
                     "ADServerNetBIOSName1": {
                         "Ref": "ADServer1NetBIOSName"
@@ -1088,11 +1383,17 @@
                     "DomainAdminUser": {
                         "Ref": "DomainAdminUser"
                     },
-                    "ADServer1PrivateIp": {
-                        "Ref": "ADServer1PrivateIP"
+                    "DomainDNSName": {
+                        "Ref": "DomainDNSName"
                     },
-                    "ADServer2PrivateIp": {
-                        "Ref": "ADServer2PrivateIP"
+                    "DomainMemberSGID": {
+                        "Fn::GetAtt": [
+                            "ADStack",
+                            "Outputs.DomainMemberSGID"
+                        ]
+                    },
+                    "DomainNetBIOSName": {
+                        "Ref": "DomainNetBIOSName"
                     },
                     "EXCH1PrivateIp": {
                         "Ref": "EXCH1PrivateIp"
@@ -1106,50 +1407,53 @@
                     "EXCH2PrivateIp2": {
                         "Ref": "EXCH2PrivateIp2"
                     },
+                    "EXCHInstanceType": {
+                        "Ref": "EXCHInstanceType"
+                    },
+                    "EdgeInstanceType": {
+                        "Ref": "EdgeInstanceType"
+                    },
                     "IncludeEdge": {
                         "Ref": "IncludeEdge"
                     },
-                    "DomainMemberSGID": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.DomainMemberSGID"
-                        ]
-                    },
-                    "VPC": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.VPCID"
-                        ]
-                    },
-                    "PrivateSubnet1Id": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet1ID"
-                        ]
-                    },
-                    "PrivateSubnet2Id": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet2ID"
-                        ]
-                    },
-                    "PublicSubnet1Id": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PublicSubnet1ID"
-                        ]
-                    },
-                    "PublicSubnet2Id": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PublicSubnet2ID"
-                        ]
+                    "KeyPairName": {
+                        "Ref": "KeyPairName"
                     },
                     "PrivSub1CIDR": {
                         "Ref": "PrivateSubnet1CIDR"
                     },
                     "PrivSub2CIDR": {
                         "Ref": "PrivateSubnet2CIDR"
+                    },
+                    "PrivateSubnet1Id": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet1AID"
+                        ]
+                    },
+                    "PrivateSubnet2Id": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet2AID"
+                        ]
+                    },
+                    "PublicSubnet1Id": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PublicSubnet1ID"
+                        ]
+                    },
+                    "PublicSubnet2Id": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PublicSubnet2ID"
+                        ]
+                    },
+                    "VPC": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.VPCID"
+                        ]
                     },
                     "VPCCIDR": {
                         "Ref": "VPCCIDR"
@@ -1161,64 +1465,26 @@
             "Type": "AWS::CloudFormation::Stack",
             "DependsOn": "SQLStack",
             "Properties": {
-                "TemplateURL": "https://s3.amazonaws.com/aws-quickstart/quickstart-enterprise-accelerator-msservers/submodules/quickstart-microsoft-lync/templates/Template_1_Lync_2013.template",
+                "TemplateURL": {
+                    "Fn::Sub": [
+                        "https://${QSS3BucketName}.${QSS3Region}.amazonaws.com/${QSS3KeyPrefix}submodules/quickstart-microsoft-lync/templates/Template_1_Lync_2013.template",
+                        {
+                            "QSS3Region": {
+                                "Fn::If": [
+                                    "GovCloudCondition",
+                                    "s3-us-gov-west-1",
+                                    "s3"
+                                ]
+                            }
+                        }
+                    ]
+                },
                 "Parameters": {
-                    "KeyPairName": {
-                        "Ref": "KeyPairName"
-                    },
-                    "DomainAdminPassword": {
-                        "Ref": "DomainAdminPassword"
-                    },
-                    "DomainMemberSGID": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.DomainMemberSGID"
-                        ]
-                    },
-                    "VPC": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.VPCID"
-                        ]
-                    },
-                    "PublicSubnet1": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PublicSubnet1ID"
-                        ]
-                    },
-                    "PublicSubnet2": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PublicSubnet2ID"
-                        ]
-                    },
-                    "PrivateSubnet1": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet1ID"
-                        ]
-                    },
-                    "PrivateSubnet2": {
-                        "Fn::GetAtt": [
-                            "ADStack",
-                            "Outputs.PrivateSubnet2ID"
-                        ]
-                    },
                     "ADServer1PrivateIp": {
                         "Ref": "ADServer1PrivateIP"
                     },
                     "ADServer2PrivateIp": {
                         "Ref": "ADServer2PrivateIP"
-                    },
-                    "DomainDNSName": {
-                        "Ref": "DomainDNSName"
-                    },
-                    "DomainNetBIOSName": {
-                        "Ref": "DomainNetBIOSName"
-                    },
-                    "DomainAdminUser": {
-                        "Ref": "DomainAdminUser"
                     },
                     "ADServerNetBIOSName1": {
                         "Ref": "ADServer1NetBIOSName"
@@ -1226,38 +1492,89 @@
                     "ADServerNetBIOSName2": {
                         "Ref": "ADServer2NetBIOSName"
                     },
+                    "DomainAdminPassword": {
+                        "Ref": "DomainAdminPassword"
+                    },
+                    "DomainAdminUser": {
+                        "Ref": "DomainAdminUser"
+                    },
+                    "DomainDNSName": {
+                        "Ref": "DomainDNSName"
+                    },
+                    "DomainMemberSGID": {
+                        "Fn::GetAtt": [
+                            "ADStack",
+                            "Outputs.DomainMemberSGID"
+                        ]
+                    },
+                    "DomainNetBIOSName": {
+                        "Ref": "DomainNetBIOSName"
+                    },
                     "FE1PrivateIp": {
                         "Ref": "FE1PrivateIp"
                     },
                     "FE2PrivateIp": {
                         "Ref": "FE2PrivateIp"
                     },
+                    "IncludeEdge": {
+                        "Ref": "IncludeEdge"
+                    },
+                    "KeyPairName": {
+                        "Ref": "KeyPairName"
+                    },
                     "LE1PrivateIp": {
                         "Ref": "LE1PrivateIp"
-                    },
-                    "LE2PrivateIp": {
-                        "Ref": "LE2PrivateIp"
                     },
                     "LE1PublicIp": {
                         "Ref": "LE1PublicIp"
                     },
+                    "LE2PrivateIp": {
+                        "Ref": "LE2PrivateIp"
+                    },
                     "LE2PublicIp": {
                         "Ref": "LE2PublicIp"
-                    },
-                    "LyncFEInstanceType": {
-                        "Ref": "LyncFEInstanceType"
                     },
                     "LyncEdgeInstanceType": {
                         "Ref": "LyncEdgeInstanceType"
                     },
-                    "IncludeEdge": {
-                        "Ref": "IncludeEdge"
-                    },
-                    "VPCCIDR": {
-                        "Ref": "VPCCIDR"
+                    "LyncFEInstanceType": {
+                        "Ref": "LyncFEInstanceType"
                     },
                     "LyncISOImageURI": {
                         "Ref": "LyncISOImageURI"
+                    },
+                    "PrivateSubnet1": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet1AID"
+                        ]
+                    },
+                    "PrivateSubnet2": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PrivateSubnet2AID"
+                        ]
+                    },
+                    "PublicSubnet1": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PublicSubnet1ID"
+                        ]
+                    },
+                    "PublicSubnet2": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.PublicSubnet2ID"
+                        ]
+                    },
+                    "VPC": {
+                        "Fn::GetAtt": [
+                            "VPCStack",
+                            "Outputs.VPCID"
+                        ]
+                    },
+                    "VPCCIDR": {
+                        "Ref": "VPCCIDR"
                     }
                 }
             }
